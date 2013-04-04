@@ -15,11 +15,11 @@ import com.google.gson.JsonParser;
  * Contains object definition for Rater
  */
 public class Rater {
-	String _id;
-	String _rev;
-	String email;
-	String password;
-	String verified;
+	public String _id;
+	public String _rev;
+	public String email;
+	public String password;
+	public boolean verified;
 	
 	/**
 	 * @author sonhv

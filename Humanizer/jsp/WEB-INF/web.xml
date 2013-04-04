@@ -11,6 +11,23 @@
 		<welcome-file>login.jsp</welcome-file>
 	</welcome-file-list>
     <servlet>
+        <servlet-name>logout</servlet-name>
+        <servlet-class>org.humanizer.rating.LogoutServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>logout</servlet-name>
+        <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+	
+    <servlet>
+       <servlet-name>register</servlet-name>
+       <servlet-class>org.humanizer.rating.RegisterServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>register</servlet-name>
+        <url-pattern>/register</url-pattern>
+    </servlet-mapping>
+    <servlet>
         <servlet-name>list_keyword</servlet-name>
         <servlet-class>org.humanizer.rating.ListKeywordServlet</servlet-class>
     </servlet>
