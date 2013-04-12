@@ -9,6 +9,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
 
 /**
  * @author sonhv
@@ -17,7 +18,8 @@ import java.net.URL;
 public class HTTPClient {
 	public static String request(String sUrl){
 		StringBuffer ret = new StringBuffer();
-		 try {
+		 try {	
+			 	//sUrl = URLEncoder.encode(sUrl,"UTF-8");
 		    	URL url = new URL(sUrl);
 			    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 			    connection.setDoOutput(true);
@@ -39,7 +41,7 @@ public class HTTPClient {
 		        	}
 			      reader.close();        	
 		        } else {
-		            // Server returned HTTP error code.
+		            //Server returned HTTP error code.
 		        	//String line = "456";
 		        }	    
 		        connection.disconnect();

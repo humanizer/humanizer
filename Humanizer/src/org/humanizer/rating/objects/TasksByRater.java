@@ -140,7 +140,7 @@ public class TasksByRater {
 			for (int j = 0; j < obj5.size(); j ++){
 				//String key = .toString();
 				JsonPrimitive tmp3 = (JsonPrimitive) obj5.get(j); 
-				String key = String.valueOf(tmp3.getAsInt());
+				String key = String.valueOf(tmp3.getAsString());
 				System.out.println((String)key);
 				if (itemList.containsKey((String)key)){
 					List tmp = new ArrayList();

@@ -21,13 +21,13 @@
 </script>     
 
 <script type="text/javascript"> 
-	$(function (){
+	/*$(function (){
 		$('#rating_form').submit(function () {
 		//alert("123");
 		 sendContactForm();
 		 return false;
 		});	
-	});
+	});*/
 </script>
 
 <script type="text/javascript"> 
@@ -118,7 +118,7 @@
     <input type="hidden" id="type" name="type" value="new_rate" />
     <input type="hidden" id="rating" name="rating" value="3" />
     <input type="text" id="note" name="note" value=""/>
-    <input type="button" class="btnSubmit" onclick="doSubmit()" value=" "/>
+    <input type="submit" id="submit"  class="btnSubmit" value=" "/>
     <%
     }
     %>

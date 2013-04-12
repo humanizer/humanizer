@@ -9,6 +9,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -72,6 +73,7 @@ public class ListKeywordServlet extends HttpServlet {
     
     
     //2. Get Task list for current user
+    //username = URLEncoder.encode(username,"UTF-8");
     sURL = "http://humanizer.iriscouch.com/tasks/_design/api/_view/rater_tasks_with_items?startkey=%22" + username + "%22&endkey=%22" + username + "%22";
     sResult = HTTPClient.request(sURL);
     

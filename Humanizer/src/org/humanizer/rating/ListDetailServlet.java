@@ -9,6 +9,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
@@ -71,16 +72,19 @@ public class ListDetailServlet extends HttpServlet {
   Items item = new Items();
   item.initItemList(sResult);  
   
+  String username_encoded = URLEncoder.encode(username,"UTF-8");
+  String keyword_encoded = URLEncoder.encode(keyword,"UTF-8");
+  
   
   //2. Get Rater's rating
-  sURL = "http://humanizer.iriscouch.com/ratings/_design/api/_view/rating_by_rater_as_key?startkey=%22" + username + "%22&endkey=%22" + username + "%22&include_docs=true";
+  sURL = "http://humanizer.iriscouch.com/ratings/_design/api/_view/rating_by_rater_as_key?startkey=%22" + username_encoded + "%22&endkey=%22" + username_encoded + "%22&include_docs=true";
   sResult = HTTPClient.request(sURL);
   TasksByRater rater = new TasksByRater();
   rater.setItemList(item.getItemList());  
   rater.setRatingResult(sResult);
 
   //3. Get Rater's task
-  sURL = "http://humanizer.iriscouch.com/tasks/_design/api/_view/rater_tasks_with_items?startkey=%22" + username + "%7C" + keyword + "%22&endkey=%22" + username + "%7C" + keyword +  "%22&include_docs=true";
+  sURL = "http://humanizer.iriscouch.com/tasks/_design/api/_view/rater_tasks_with_items?startkey=%22" + username_encoded + "%7C" + keyword_encoded + "%22&endkey=%22" + username_encoded + "%7C" + keyword_encoded +  "%22&include_docs=true";
   sResult = HTTPClient.request(sURL);  
   rater.init(sResult);
   
