@@ -26,6 +26,7 @@ public class RatingResult {
 	public String relevance;
 	public String note;
 	public String item_id;
+	public String task_id;
 	public String _id;
 	public String _rev;
 	
@@ -68,6 +69,7 @@ public class RatingResult {
 				String _rev = doc.get("_rev").getAsString();
 				String _id = doc.get("_id").getAsString();
 				String item_id = doc.get("item_id").getAsString();
+				String task_id = doc.get("task_id").getAsString();
 				if ( (rater.equals(rater_check)) && 
 						(item_id.equals(item_id_check)) ){
 					bIsFound = true;
@@ -77,7 +79,8 @@ public class RatingResult {
 					this.note = note;
 					this.item_id = item_id;
 					this._rev = _rev;
-					this._id = _id;					
+					this._id = _id;				
+					this.task_id = task_id;
 					return true;
 				}
 				//data.add(elem);

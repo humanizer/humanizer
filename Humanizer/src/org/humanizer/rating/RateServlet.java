@@ -60,6 +60,7 @@ public class RateServlet extends HttpServlet {
     String m_url = req.getParameter("url");
     String keyword = req.getParameter("query");
     String task = req.getParameter("task");
+    String task_id = req.getParameter("task");
     String point = req.getParameter("rating");
     String note = req.getParameter("note");
     String type = req.getParameter("type");
@@ -73,6 +74,7 @@ public class RateServlet extends HttpServlet {
     rating.relevance = point;
     rating.note = note;
     rating.item_id = item_id;
+    rating.task_id = task_id;
     rating.time_stamp = String.valueOf(System.currentTimeMillis() / 1000L);
     if (type.equals("change_rate")){
     	rating._id = req.getParameter("_id");
@@ -125,7 +127,7 @@ public class RateServlet extends HttpServlet {
     
     
     //2.2. Get rating by rater list
-    sURL = "http://humanizer.iriscouch.com/ratings/_design/api/_view/rating_by_rater?startkey=%22" + username + "," + item_id + "%22&endkey=%22" + username + "," + item_id + "%22";
+    sURL = "http://humanizer.iriscouch.com/ratings/_design/api/_view/rating_by_rater_task_item?startkey=%22" + username + "%7C" + task  + "%7C" + item_id + "%22&endkey=%22" + username + "%7C" + task + "%7C" + item_id + "%22";
     sResult = HTTPClient.request(sURL);
     
     

@@ -76,7 +76,7 @@ public class RatingServlet extends HttpServlet {
     
     
     //2. Get rating by rater list
-    sURL = "http://humanizer.iriscouch.com/ratings/_design/api/_view/rating_by_rater?startkey=%22" + username + "," + item_id + "%22&endkey=%22" + username + "," + item_id + "%22";
+    sURL = "http://humanizer.iriscouch.com/ratings/_design/api/_view/rating_by_rater_task_item?startkey=%22" + username + "%7C" + task  + "%7C" + item_id + "%22&endkey=%22" + username + "%7C" + task + "%7C" + item_id + "%22";
     sResult = HTTPClient.request(sURL);
     
     

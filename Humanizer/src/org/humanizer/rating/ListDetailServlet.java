@@ -77,14 +77,15 @@ public class ListDetailServlet extends HttpServlet {
   
   
   //2. Get Rater's rating
-  sURL = "http://humanizer.iriscouch.com/ratings/_design/api/_view/rating_by_rater_as_key?startkey=%22" + username_encoded + "%22&endkey=%22" + username_encoded + "%22&include_docs=true";
+  //sURL = "http://humanizer.iriscouch.com/ratings/_design/api/_view/rating_by_rater_as_key?startkey=%22" + username_encoded + "%22&endkey=%22" + username_encoded + "%22&include_docs=true";
+  sURL = "http://humanizer.iriscouch.com/ratings/_design/api/_view/rating_by_rater_task?startkey=%22" + username + "%7C" + task  + "%22&endkey=%22" + username + "%7C" + task + "%22";    
   sResult = HTTPClient.request(sURL);
   TasksByRater rater = new TasksByRater();
   rater.setItemList(item.getItemList());  
   rater.setRatingResult(sResult);
 
   //3. Get Rater's task
-  sURL = "http://humanizer.iriscouch.com/tasks/_design/api/_view/rater_tasks_with_items?startkey=%22" + username_encoded + "%7C" + keyword_encoded + "%22&endkey=%22" + username_encoded + "%7C" + keyword_encoded +  "%22&include_docs=true";
+  sURL = "http://humanizer.iriscouch.com/tasks/_design/api/_view/tasks_by_rater?startkey=%22" + username_encoded + "%7C" + task + "%22&endkey=%22" + username_encoded + "%7C" + task +  "%22&include_docs=true";
   sResult = HTTPClient.request(sURL);  
   rater.init(sResult);
   
