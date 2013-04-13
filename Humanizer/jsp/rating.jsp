@@ -77,7 +77,7 @@
       px = px*25;
     }
   %>
-  <iframe marginwidth="0" marginheight="0" frameborder="0" width="1000px" height="1500px"
+  <iframe id="content" marginwidth="0" marginheight="0" frameborder="0" width="1000px" height="1500px"
     bottommargin="0" rightmargin="0" leftmargin="0" topmargin="0" nosize scrolling="no" 
   
   src="<%=url %>"></iframe>
@@ -128,7 +128,38 @@
   </div>
   </form>
 </div>
+<script type="text/javascript">
+$('#rating_form').live('submit',function(){
+	$.ajax({
+		type: "POST",
+		url: "rate",
+		data: $(this).serialize()
+		}).done(function( data ) {
 
+		var iframe_src = $('#content').attr('src');
+		var response = new Object();
+		
+		//extract data
+		response.container =  $(data).filter('div.container');
+		response.form = $(data).filter('div.rating-bottom');
+		
+		//update content of div container
+		
+		if(iframe_src == ''){
+			$('div.container').html(response.container);
+		}
+		
+		//update conntent of form
+		$('div.rating-bottom').html(response.form);
+		
+		}).fail(function() { 
+			alert("error"); 
+		});
+// 	alert("submit");
+	return false;
+});
+
+</script>
 
 </body>
 </html>
