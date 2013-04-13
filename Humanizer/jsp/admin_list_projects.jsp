@@ -39,7 +39,7 @@
       %>
 		<tr>
 		<td class="for_table"><%=index %></td>
-		<td class="for_table"> <a href="/admin_list_tanks?project=<%=_id%>"><%=name%></a></td>
+		<td class="for_table"> <a href="/admin_list_tasks?project=<%=_id%>&project_name=<%=name%>"><%=name%></a></td>
 		<td class="for_table"> N/A </td>
 		<td class="for_table">_/<%=rater_count%></td>
        </tr>

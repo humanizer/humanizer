@@ -21,6 +21,8 @@ import javax.servlet.http.HttpSession;
 
 import org.datanucleus.store.types.sco.backed.List;
 import org.humanizer.rating.objects.Items;
+import org.humanizer.rating.objects.Project;
+import org.humanizer.rating.objects.Tasks;
 import org.humanizer.rating.objects.TasksByRater;
 import org.humanizer.rating.utils.HTTPClient;
 
@@ -53,66 +55,36 @@ public class AdminListTasksServlet extends HttpServlet {
    */
   public void doPost(HttpServletRequest req, HttpServletResponse resp)
       throws IOException {
-  HttpSession sess = req.getSession(true);
-  String username = (String) sess.getAttribute("username");	
-	if (username == null){
-		resp.sendRedirect("/login.jsp");
-		return;
-	}  
-  String keyword = req.getParameter("keyword");
-  String task = req.getParameter("task");
-  String task_name = req.getParameter("task_name");
-  
-  //perform get rate list by keyword and task
-  StringBuilder sb = new StringBuilder();
-  
-  //1. Get items list
-  String sURL = "http://humanizer.iriscouch.com/items/_design/api_items/_view/items_list";
-  String sResult = HTTPClient.request(sURL);
-  Items item = new Items();
-  item.initItemList(sResult);  
-  
-  String username_encoded = URLEncoder.encode(username,"UTF-8");
-  String keyword_encoded = URLEncoder.encode(keyword,"UTF-8");
-  
-  
-  //2. Get Rater's rating
-  //sURL = "http://humanizer.iriscouch.com/ratings/_design/api/_view/rating_by_rater_as_key?startkey=%22" + username_encoded + "%22&endkey=%22" + username_encoded + "%22&include_docs=true";
-  sURL = "http://humanizer.iriscouch.com/ratings/_design/api/_view/rating_by_rater_task?startkey=%22" + username + "%7C" + task  + "%22&endkey=%22" + username + "%7C" + task + "%22";    
-  sResult = HTTPClient.request(sURL);
-  TasksByRater rater = new TasksByRater();
-  rater.setItemList(item.getItemList());  
-  rater.setRatingResult(sResult);
+	  HttpSession sess = req.getSession(true);
+	  String username = (String) sess.getAttribute("adminuser");	
+		if (username == null){
+			resp.sendRedirect("/admin_login.jsp");
+			return;
+		}  
+	  
+	  String projectId = req.getParameter("project");
+	  String project_name = req.getParameter("project_name");
+	  
+	  //1. Get items list from this project
+	  String sURL = "http://humanizer.iriscouch.com/tasks/_design/api/_view/tasks_by_project?startkey=%22" + projectId + "%22&endkey=%22" + projectId + "%22";	  
+	  String sResult = HTTPClient.request(sURL);
+	  Tasks prj = new Tasks();
+	  prj.initTasksList(sResult);  
+	  
+	    
+	  req.setAttribute("data",prj.getData());
+	  req.setAttribute("project_name", project_name);
+	  
+	  RequestDispatcher dispatcher = req.getRequestDispatcher("/admin_list_tasks.jsp");
 
-  //3. Get Rater's task
-  sURL = "http://humanizer.iriscouch.com/tasks/_design/api/_view/tasks_by_rater?startkey=%22" + username_encoded + "%7C" + task + "%22&endkey=%22" + username_encoded + "%7C" + task +  "%22&include_docs=true";
-  sResult = HTTPClient.request(sURL);  
-  rater.init(sResult);
-  
-  ArrayList lst = (ArrayList)rater.getData();
-  ArrayList lst1 = (ArrayList) lst.get(0);
-  for (int i = 0; i <4; i ++){
-	  //remove 4 first item
-	  lst1.remove(0);
-  }
-  
-  //lst1.remove(0);
-  req.setAttribute("data",lst1);
-  req.setAttribute("keyword", keyword);
-  req.setAttribute("task", task);
-  req.setAttribute("task_name", task_name);
-  //req.setAttribute("task_status", rater.getStatus());
-  
-  RequestDispatcher dispatcher = req.getRequestDispatcher("/list_detail.jsp");
-
-  if (dispatcher != null){
-    try {
-      dispatcher.forward(req, resp);
-    } catch (ServletException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
-  } 
+	  if (dispatcher != null){
+	    try {
+	      dispatcher.forward(req, resp);
+	    } catch (ServletException e) {
+	      // TODO Auto-generated catch block
+	      e.printStackTrace();
+	    }
+	  } 
 
   }  
 }

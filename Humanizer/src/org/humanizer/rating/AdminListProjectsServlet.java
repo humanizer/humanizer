@@ -61,8 +61,6 @@ public class AdminListProjectsServlet extends HttpServlet {
 		return;
 	}  
   
-  //perform get rate list by keyword and task
-  StringBuilder sb = new StringBuilder();
   
   //1. Get projects list
   String sURL = "http://humanizer.iriscouch.com/projects/_design/api/_view/list_projects";
