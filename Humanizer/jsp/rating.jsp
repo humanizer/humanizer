@@ -61,7 +61,12 @@
 <body>
 <div class="container">
   <%
-    String url = (String)request.getAttribute("url");
+//     String url = (String)request.getAttribute("url");
+
+  	//Change to getParameter();
+  	//Because alway exist parameter url
+  	String url = (String)request.getParameter("url");
+  
     String task = (String)request.getAttribute("task");
     String keyword = (String)request.getAttribute("keyword");    
     String note = (String)request.getAttribute("note");    
