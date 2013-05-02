@@ -25,24 +25,28 @@ public class Items {
 		Gson gson = new Gson();
 		data.clear();
 		//gson.fromJson(json, typeOfT)
-		JsonParser parser = new JsonParser();
-		JsonObject obj = parser.parse(input).getAsJsonObject();
-		JsonArray arr = parser.parse(obj.get("rows").toString()).getAsJsonArray();
-		for (int i = 0; i < arr.size(); i ++){
-			ArrayList elem = new ArrayList();
-			JsonObject obj2 = (JsonObject) arr.get(i);		
-			String key = obj2.get("key").getAsString();			
-			JsonObject obj3 = obj2.get("value").getAsJsonObject();
-			List tmp2 = new ArrayList();
-			tmp2.add(obj3.get("_id").getAsString());
-			tmp2.add(obj3.get("_rev").getAsString());
-			//tmp2.add(obj3.get("title").getAsString());
-			JsonObject obj4 = obj3.get("value").getAsJsonObject();
-			tmp2.add(obj4.get("url").getAsString());
-			tmp2.add(obj4.get("title").getAsString());
-			tmp2.add(obj4.get("snippet").getAsString());
-			tmp2.add(obj4.get("position").getAsString());
-			data.add(tmp2);			
+		try{
+			JsonParser parser = new JsonParser();
+			JsonObject obj = parser.parse(input).getAsJsonObject();
+			JsonArray arr = parser.parse(obj.get("rows").toString()).getAsJsonArray();
+			for (int i = 0; i < arr.size(); i ++){
+				ArrayList elem = new ArrayList();
+				JsonObject obj2 = (JsonObject) arr.get(i);		
+				String key = obj2.get("key").getAsString();			
+				JsonObject obj3 = obj2.get("value").getAsJsonObject();
+				List tmp2 = new ArrayList();
+				tmp2.add(obj3.get("_id").getAsString());
+				tmp2.add(obj3.get("_rev").getAsString());
+				//tmp2.add(obj3.get("title").getAsString());
+				JsonObject obj4 = obj3.get("value").getAsJsonObject();
+				tmp2.add(obj4.get("url").getAsString());
+				tmp2.add(obj4.get("title").getAsString());
+				tmp2.add(obj4.get("snippet").getAsString());
+				tmp2.add(obj4.get("position").getAsString());
+				data.add(tmp2);			
+			}			
+		}catch (Exception ex){
+			ex.printStackTrace();
 		}
 		
 	}
@@ -57,16 +61,17 @@ public class Items {
 			ArrayList elem = new ArrayList();
 			JsonObject obj2 = (JsonObject) arr.get(i);		
 			String key = obj2.get("key").getAsString();			
-			JsonArray obj3 = obj2.get("value").getAsJsonArray();
-			JsonPrimitive obj3_0 = (JsonPrimitive) obj3.get(0);
-			JsonObject obj3_1 = (JsonObject) obj3.get(1);
+			JsonObject obj3 = obj2.get("value").getAsJsonObject();
+			JsonObject obj4 = obj3.get("value").getAsJsonObject();
+			//JsonPrimitive obj3_0 = (JsonPrimitive) obj3.get("name");
+			//JsonObject obj3_1 = (JsonObject) obj3.get("position");
 			Hashtable tmp = new Hashtable();
 			tmp.put("item_id", obj2.get("id").getAsString());			
-			tmp.put("name", obj3_0.getAsString());
-			tmp.put("position", obj3_1.get("position").getAsInt());
-			tmp.put("url", obj3_1.get("url").getAsString());
-			tmp.put("title", obj3_1.get("title").getAsString());
-			tmp.put("snippet", obj3_1.get("snippet").getAsString());
+			tmp.put("name", obj3.get("name").getAsString());
+			tmp.put("position", obj4.get("position").getAsInt());
+			tmp.put("url", obj4.get("url").getAsString());
+			tmp.put("title", obj4.get("title").getAsString());
+			tmp.put("snippet", obj4.get("snippet").getAsString());
 			itemList.put(key, tmp);		
 			
 		}
@@ -74,7 +79,55 @@ public class Items {
 		//obj.
 		//return this;		
 		
+	}
+	
+	public void initItemListForTask(String input){
+		//itemList.put(key, value);
+		Gson gson = new Gson();
+		//gson.fromJson(json, typeOfT)
+		JsonParser parser = new JsonParser();
+		try{
+			JsonObject obj = parser.parse(input).getAsJsonObject();
+			
+			JsonArray arr = parser.parse(obj.get("rows").toString()).getAsJsonArray();
+			for (int i = 0; i < arr.size(); i ++){
+				ArrayList elem = new ArrayList();
+				JsonObject obj2 = (JsonObject) arr.get(i);									
+				JsonObject obj3 = obj2.get("doc").getAsJsonObject();
+				JsonObject obj4 = obj3.get("value").getAsJsonObject();
+				String id = obj3.get("_id").getAsString();
+				//JsonPrimitive obj3_0 = (JsonPrimitive) obj3.get("name");
+				//JsonObject obj3_1 = (JsonObject) obj3.get("position");
+				Hashtable tmp = new Hashtable();
+				tmp.put("item_id", obj3.get("_id").getAsString());			
+				tmp.put("name", obj3.get("name").getAsString());
+				tmp.put("position", obj4.get("position").getAsInt());
+				tmp.put("url", obj4.get("url").getAsString());
+				tmp.put("title", obj4.get("title").getAsString());
+				tmp.put("snippet", obj4.get("snippet").getAsString());
+				itemList.put(id, tmp);		
+				
+				List tmp2 = new ArrayList();
+				tmp2.add(obj3.get("_id").getAsString());
+				tmp2.add(obj3.get("_rev").getAsString());
+				//tmp2.add(obj3.get("title").getAsString());
+				tmp2.add(obj4.get("url").getAsString());
+				tmp2.add(obj4.get("title").getAsString());
+				tmp2.add(obj4.get("snippet").getAsString());
+				tmp2.add(obj4.get("position").getAsString());
+				data.add(tmp2);			
+				
+				
+			}			
+		}catch (Exception ex){
+			ex.printStackTrace();
+		}
+		
+		//obj.
+		//return this;		
+		
 	}	
+	
 	public Hashtable getItemList(){
 		return this.itemList;
 	}

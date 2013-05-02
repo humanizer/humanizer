@@ -120,7 +120,7 @@ public class RateServlet extends HttpServlet {
     StringBuilder sb = new StringBuilder();
 
     //2.1. Get items list    
-    String sURL = "http://humanizer.iriscouch.com/items/_design/api_items/_view/items_list";
+    String sURL = "http://humanizer.iriscouch.com/items/_design/index/_view/items_list";
     String sResult = HTTPClient.request(sURL);
     Items item = new Items();
     item.initItemList(sResult);  

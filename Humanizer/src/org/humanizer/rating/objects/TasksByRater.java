@@ -4,6 +4,7 @@
 package org.humanizer.rating.objects;
 
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Vector;
@@ -72,8 +73,43 @@ public class TasksByRater {
 	
 	}
 	
-	public void setRatingResult(String input){
+	public void refineWithRating(){
+		ArrayList newData = new ArrayList();
+		
+
+		Enumeration<String> enumKey = itemList.keys();
+		while(enumKey.hasMoreElements()) {
+		    String key = enumKey.nextElement();
+			List tmp = new ArrayList();
+			Hashtable req = (Hashtable) itemList.get((String)key);
+			tmp.add(req.get("item_id").toString());
+			tmp.add(req.get("name").toString());
+			tmp.add(req.get("position").toString());
+			tmp.add(req.get("url").toString());
+			tmp.add(req.get("title").toString());
+			tmp.add(req.get("snippet").toString());
+			if (req.containsKey("rating")){
+				tmp.add(req.get("rating").toString());
+			}
+			if (req.containsKey("note")){
+				tmp.add(req.get("note").toString());
+			}					
+			
+			//elem.add(tmp);
+			newData.add(tmp);
+			//elem.add(req.get("url").toString());
+			//System.out.println(req.get("url").toString());
+		    
+		}
+		
 		data.clear();
+		data = newData;
+		
+		
+	}
+	
+	public void setRatingResult(String input){
+		//data.clear();
 		Gson gson = new Gson();
 		//gson.fromJson(json, typeOfT)
 		JsonParser parser = new JsonParser();
@@ -122,7 +158,7 @@ public class TasksByRater {
 			//JsonObject doc = parser.parse(obj2.get("doc").toString()).getAsJsonObject();			
 			String title = obj3.get("title").getAsString();
 			JsonObject obj6 = obj3.get("status").getAsJsonObject();
-			JsonPrimitive obj7 = (JsonPrimitive) obj6.get(user);
+			JsonPrimitive obj7 = (JsonPrimitive) obj6.get(user + "|" + task);
 			String status = "";
 			if (obj7 != null){
 				status = obj7.getAsString();
@@ -134,6 +170,11 @@ public class TasksByRater {
 			System.out.println(keyword);
 			elem.add(title);
 			elem.add(status);
+			
+			/*if (!obj3.has("item_ids")){
+				continue;
+				
+			}
 			JsonArray obj5 = obj3.get("item_ids").getAsJsonArray();
 			//JsonObject search = parser.parse(doc.get("search").toString()).getAsJsonObject();
 			//JsonArray results = parser.parse(search.get("results").toString()).getAsJsonArray();
@@ -165,7 +206,7 @@ public class TasksByRater {
 				//item_ids.add(url);
 				//elem.add(url);
 				//System.out.println(url);
-			}
+			}*/
 			data.add(elem);
 		}
 		

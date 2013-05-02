@@ -13,17 +13,16 @@
   <!--<div class="row" id="topbar">
     
   </div> -->
-  <div class="keyword">Details for task <b><%=request.getAttribute("task_name") %></b>: </div>
+  <div class="keyword">Details for <b><%=request.getAttribute("title") %></b>: </div>
   <div class="list-key">
 
 	<table>
 		<tr>
 		<th class="for_table">No</th>
-		<th class="for_table">Title</th>
-		<th class="for_table">URL</th>
-		<th class="for_table">Snippet</th>
-		<th class="for_table">Position</th>
-		<th class="for_table">Rating</th>
+		<th class="for_table">User</th>
+		<th class="for_table">Relevance</th>
+		<th class="for_table">Note</th>
+		<th class="for_table">Time</th>		
 		</tr>
 		
       <%Iterator itr;%>
@@ -35,20 +34,18 @@
         Iterator itr2;
         for (itr2=lst.iterator(); itr2.hasNext();) {
 		  index += 1;
-		  String _id = (String) itr2.next();
-		  String _rev = (String) itr2.next();
-		  String url = (String) itr2.next();
-          String title = (String) itr2.next();          
-		  String snippet = (String) itr2.next();
-		  String position = (String) itr2.next();		  
+		  String user = (String) itr2.next();
+		  String rating = (String) itr2.next();
+		  String note = (String) itr2.next();
+          String time = (String) itr2.next();          
       %>
 		<tr>
 		<td class="for_table"><%=index %></td>
-		<td class="for_table"><%=title %></td>
-		<td class="for_table"><%=url %></td>
-		<td class="for_table"><%=snippet %></td>
-		<td class="for_table"><%=position %></td>
-		<td class="for_table"><a href="/admin_list_ratings?item=<%=_id%>&task=<%=task%>&title=<%=title%>">View details</a></td>
+		<td class="for_table"><%=user %></td>
+		<td class="for_table"><%=rating %></td>
+		<td class="for_table"><%=note %></td>
+		<td class="for_table"><%=time %></td>
+		
 		
        </tr>
         <%

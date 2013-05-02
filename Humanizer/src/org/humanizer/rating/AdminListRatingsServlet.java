@@ -19,9 +19,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.datanucleus.store.types.sco.backed.List;
+import java.util.List;
 import org.humanizer.rating.objects.Items;
 import org.humanizer.rating.objects.Project;
+import org.humanizer.rating.objects.RatingResult;
 import org.humanizer.rating.objects.TasksByRater;
 import org.humanizer.rating.utils.HTTPClient;
 
@@ -33,7 +34,7 @@ import com.google.gson.Gson;
  * Showing results for a keyword rating
  */
 @SuppressWarnings("serial")
-public class AdminListItemsServlet extends HttpServlet {
+public class AdminListRatingsServlet extends HttpServlet {
   //private static final Logger log = Logger.getLogger(AuthenServlet.class.getName());
   /**
    * @author sonhv
@@ -62,21 +63,23 @@ public class AdminListItemsServlet extends HttpServlet {
 		}  
 	  
 	  String taskId = req.getParameter("task");
-	  String taskName = req.getParameter("task_name");
+	  String itemId = req.getParameter("item");
+	  String title = req.getParameter("title");
 	  
-	  //1. Get items list from this task
-	  String sURL = "http://humanizer.iriscouch.com/items/_design/index/_view/items_in_task?startkey=%22" + taskId + "%22&endkey=%22" + taskId + "%22&include_docs=true";	  
+	  //1. Get rating list from this task
+	  String sURL = "http://humanizer.iriscouch.com/ratings/_design/api/_view/rating_by_item_task?startkey=%22" + itemId + "%7C" + taskId + "%22&endkey=%22" +itemId + "%7C" + taskId + "%22&include_docs=true";	  
 	  String sResult = HTTPClient.request(sURL);
-	  Items item = new Items();
-	  item.initItemListForTask(sResult);  
+	  RatingResult res = new RatingResult();
+	  List ret = (List) res.init(sResult);  
 	  
 	    
-	   req.setAttribute("data",item.getData());
+	   req.setAttribute("data",ret);
 	   req.setAttribute("task",taskId);
-	   req.setAttribute("task_name",taskName);
+	   req.setAttribute("title",title);
+	   //req.setAttribute("task_name",taskName);
 	  //req.setAttribute("task_status", rater.getStatus());
 	  
-	  RequestDispatcher dispatcher = req.getRequestDispatcher("/admin_list_items.jsp");
+	  RequestDispatcher dispatcher = req.getRequestDispatcher("/admin_list_ratings.jsp");
 
 	  if (dispatcher != null){
 	    try {

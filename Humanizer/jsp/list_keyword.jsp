@@ -30,13 +30,14 @@
 	  int index = 0;
       for (itr=data.iterator(); itr.hasNext();) {
         List lst = (List) itr.next();
-        int size = lst.size() - 4;
+        /*int size = lst.size() - 4;*/
         Iterator itr2;
         for (itr2=lst.iterator(); itr2.hasNext();) {
           String task = (String) itr2.next();
           String keyword = (String) itr2.next();
 		  String title = (String) itr2.next();
 		  String status = (String) itr2.next();
+		  String size = ((Object) itr2.next()).toString();
           keyword = keyword.substring(1);
           keyword = keyword.substring(0, keyword.length() - 1);
 		  index += 1;
