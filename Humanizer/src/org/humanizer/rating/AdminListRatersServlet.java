@@ -11,6 +11,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -19,9 +20,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.datanucleus.store.types.sco.backed.List;
 import org.humanizer.rating.objects.Items;
 import org.humanizer.rating.objects.Project;
+import org.humanizer.rating.objects.RatingResult;
 import org.humanizer.rating.objects.Tasks;
 import org.humanizer.rating.objects.TasksByRater;
 import org.humanizer.rating.utils.HTTPClient;
@@ -34,7 +35,7 @@ import com.google.gson.Gson;
  * Showing results for a keyword rating
  */
 @SuppressWarnings("serial")
-public class AdminListTasksServlet extends HttpServlet {
+public class AdminListRatersServlet extends HttpServlet {
   //private static final Logger log = Logger.getLogger(AuthenServlet.class.getName());
   /**
    * @author sonhv
@@ -63,22 +64,38 @@ public class AdminListTasksServlet extends HttpServlet {
 		}  
 	  
 	  String projectId = req.getParameter("project");
-	  String project_name = req.getParameter("project_name");
-	  String rater_count = req.getParameter("raters");
+	  String taskId = req.getParameter("task");
+	  String taskName = req.getParameter("task_name");
 	  
-	  //1. Get tasks list from this project
-	  String sURL = "http://humanizer.iriscouch.com/tasks/_design/api/_view/tasks_by_project?startkey=%22" + projectId + "%22&endkey=%22" + projectId + "%22";	  
+	  
+	  //1. Get project data
+	  String sURL = "http://humanizer.iriscouch.com/projects/_design/api/_view/list_projects?startkey=%22" + projectId + "%22&endkey=%22" + projectId + "%22";
 	  String sResult = HTTPClient.request(sURL);
-	  Tasks prj = new Tasks();
-	  prj.initTasksList(sResult);  
+	  Project prj = new Project();
+	  prj.initItemList(sResult);  
 	  
+	  List currentProject = (List)prj.getData().get(0);
+	  
+	  //2. Get tasks data
+	  sURL = "http://humanizer.iriscouch.com/tasks/_design/api/_view/task_data?startkey=%22" + taskId + "%22&endkey=%22" + taskId + "%22";	  
+	  sResult = HTTPClient.request(sURL);
+	  Tasks task = new Tasks();
+	  task.initTasksList(sResult);  	
+	  
+	  List currentTask = (List)task.getData().get(0);
+	  
+	  List raterData = (ArrayList)currentTask.get(currentTask.size() - 1);
+	  
+	
 	    
-	  req.setAttribute("data",prj.getData());
-	  req.setAttribute("project", projectId);
-	  req.setAttribute("project_name", project_name);
-	  req.setAttribute("raters", rater_count);
+	   req.setAttribute("project",currentProject);
+	   req.setAttribute("task",currentTask);
+	   req.setAttribute("raters",raterData);
+	   req.setAttribute("task",taskId);
+	   req.setAttribute("task_name",taskName);
+	  //req.setAttribute("task_status", rater.getStatus());
 	  
-	  RequestDispatcher dispatcher = req.getRequestDispatcher("/admin_list_tasks.jsp");
+	  RequestDispatcher dispatcher = req.getRequestDispatcher("/admin_list_raters.jsp");
 
 	  if (dispatcher != null){
 	    try {

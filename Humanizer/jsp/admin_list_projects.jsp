@@ -35,13 +35,14 @@
           String _id = (String) itr2.next();
           String _rev = (String) itr2.next();
 		  String name = (String) itr2.next();
-		  String rater_count = (String) itr2.next();
+		 String rater_max = (String) itr2.next();
+		  
       %>
 		<tr>
 		<td class="for_table"><%=index %></td>
-		<td class="for_table"> <a href="/admin_list_tasks?project=<%=_id%>&project_name=<%=name%>"><%=name%></a></td>
+		<td class="for_table"> <a href="/admin_list_tasks?project=<%=_id%>&project_name=<%=name%>&raters=<%=rater_max%>"><%=name%></a></td>
 		<td class="for_table"> N/A </td>
-		<td class="for_table">_/<%=rater_count%></td>
+		<td class="for_table">Max: <%=rater_max%></td>
        </tr>
         <%
           break; 

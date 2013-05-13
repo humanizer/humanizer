@@ -13,50 +13,43 @@
   <!--<div class="row" id="topbar">
     
   </div> -->
-  <div class="keyword">Details for project <b><%=request.getAttribute("project_name") %></b>: </div>
+  <div class="keyword">Rater details for task <b><%=request.getAttribute("task_name") %></b>: </div>
   <div class="list-key">
 
 	<table>
 		<tr>
 		<th class="for_table">No</th>
-		<th class="for_table">Task</th>
-		<th class="for_table">Query</th>
-		<th class="for_table">Engine</th>
-		<th class="for_table">Raters</th>
-		<th class="for_table">Items</th>
+		<th class="for_table">User Name</th>
+		<th class="for_table">Verified</th>
+		<th class="for_table">Joined date</th>
+		<th class="for_table">Edit</th>
 		</tr>
-	
-      <%Iterator itr;%>
-      <% 
-	  String rater_count = (String)request.getAttribute("raters");
-	  String project = (String)request.getAttribute("project");
-	  List data= (List)request.getAttribute("data");
-	  int index = 0;
-      for (itr=data.iterator(); itr.hasNext();) {
-        List lst = (List) itr.next();
-        Iterator itr2;
-        for (itr2=lst.iterator(); itr2.hasNext();) {
-		  index = index + 1;
-          String _id = (String) itr2.next();
-          String _rev = (String) itr2.next();
-		  String title = (String) itr2.next();
-		  String query = (String) itr2.next();
-		  String engine = (String) itr2.next();
-		  List raters= (List)itr2.next();
-		  String rater_status = String.valueOf(raters.size()) + "/" + rater_count;
-      %>
-		<tr>
+		<%
+			List raters= (List)request.getAttribute("raters");
+			Iterator iRaters;
+			int index = 0;
+			for (iRaters=raters.iterator(); iRaters.hasNext();) {	
+				String rater = (String) iRaters.next();
+				String verified = (String) iRaters.next();
+				String join_date = (String) iRaters.next();
+				
+				index += 1;
+				%>
+							<tr>
 		<td class="for_table"><%=index %></td>
-		<td class="for_table"><%=title %></td>
-		<td class="for_table"><%=query %></td>
-		<td class="for_table"><%=engine %></td>
-		<td class="for_table"><a href="/admin_list_raters?task=<%=_id%>&task_name=<%=title%>&project=<%=project%>"><%=rater_status %></a></td>
-		<td class="for_table"><a href="/admin_list_items?task=<%=_id%>&task_name=<%=title%>&project=<%=project%>">View details</a></td>
-       </tr>
-        <%
-          break; 
-        }%>    
-      <%}%>    
+		<td class="for_table"><%=rater %></td>
+		<td class="for_table"><%=verified %></td>
+		<td class="for_table"><%=join_date %></td>
+		<td class="for_table"><a href="">Delete</a></td>
+			</tr>
+				<%
+			}
+
+		%>
+		
+		<!--th class="for_table">Rating Details</th-->
+		
+ 
     </table> 
 
     

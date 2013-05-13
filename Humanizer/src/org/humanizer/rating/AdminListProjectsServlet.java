@@ -68,6 +68,8 @@ public class AdminListProjectsServlet extends HttpServlet {
   Project prj = new Project();
   prj.initItemList(sResult);  
   
+  //2. Get the total 
+  
     
    req.setAttribute("data",prj.getData());
   //req.setAttribute("task_status", rater.getStatus());

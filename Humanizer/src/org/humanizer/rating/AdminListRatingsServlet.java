@@ -23,6 +23,7 @@ import java.util.List;
 import org.humanizer.rating.objects.Items;
 import org.humanizer.rating.objects.Project;
 import org.humanizer.rating.objects.RatingResult;
+import org.humanizer.rating.objects.Tasks;
 import org.humanizer.rating.objects.TasksByRater;
 import org.humanizer.rating.utils.HTTPClient;
 
@@ -62,15 +63,23 @@ public class AdminListRatingsServlet extends HttpServlet {
 			return;
 		}  
 	  
+	  String projectId = req.getParameter("project");
 	  String taskId = req.getParameter("task");
 	  String itemId = req.getParameter("item");
 	  String title = req.getParameter("title");
 	  
-	  //1. Get rating list from this task
-	  String sURL = "http://humanizer.iriscouch.com/ratings/_design/api/_view/rating_by_item_task?startkey=%22" + itemId + "%7C" + taskId + "%22&endkey=%22" +itemId + "%7C" + taskId + "%22&include_docs=true";	  
+	  //1. Get tasks list from this project
+	  String sURL = "http://humanizer.iriscouch.com/tasks/_design/api/_view/tasks_by_project?startkey=%22" + projectId + "%22&endkey=%22" + projectId + "%22";	  
 	  String sResult = HTTPClient.request(sURL);
+	  Tasks prj = new Tasks();
+	  prj.initTasksList(sResult);  		  
+	  List raterData = (ArrayList) prj.getData().get(prj.getData().size() - 1);
+	  
+	  //2. Get rating list from this task
+	  sURL = "http://humanizer.iriscouch.com/ratings/_design/api/_view/rating_by_item_task?startkey=%22" + itemId + "%7C" + taskId + "%22&endkey=%22" +itemId + "%7C" + taskId + "%22&include_docs=true";	  
+	  sResult = HTTPClient.request(sURL);
 	  RatingResult res = new RatingResult();
-	  List ret = (List) res.init(sResult);  
+	  List ret = (List) res.init(sResult, raterData);  
 	  
 	    
 	   req.setAttribute("data",ret);

@@ -23,7 +23,19 @@
 		<th class="for_table">URL</th>
 		<th class="for_table">Snippet</th>
 		<th class="for_table">Position</th>
-		<th class="for_table">Rating</th>
+		<%
+			List raters= (List)request.getAttribute("raters");
+			Iterator iRaters;
+			for (iRaters=raters.iterator(); iRaters.hasNext();) {	
+				String rater = (String) iRaters.next();
+				%>
+					<th class="for_table"><%=rater %> </th>
+				<%
+			}
+
+		%>
+		
+		<!--th class="for_table">Rating Details</th-->
 		</tr>
 		
       <%Iterator itr;%>
@@ -40,7 +52,8 @@
 		  String url = (String) itr2.next();
           String title = (String) itr2.next();          
 		  String snippet = (String) itr2.next();
-		  String position = (String) itr2.next();		  
+		  String position = (String) itr2.next();		 
+		  List data2 = (List) itr2.next();
       %>
 		<tr>
 		<td class="for_table"><%=index %></td>
@@ -48,12 +61,43 @@
 		<td class="for_table"><%=url %></td>
 		<td class="for_table"><%=snippet %></td>
 		<td class="for_table"><%=position %></td>
-		<td class="for_table"><a href="/admin_list_ratings?item=<%=_id%>&task=<%=task%>&title=<%=title%>">View details</a></td>
 		
+		<%
+		 Iterator itr3;
+		 for (itr3=data2.iterator(); itr3.hasNext();) {
+			List lst3 = (List) itr3.next();        
+			Iterator itr4;
+			for (itr4=lst3.iterator(); itr4.hasNext();) {		 
+			  
+				String user = (String) itr4.next();
+				String rating = (String) itr4.next();
+				String note = (String) itr4.next();
+				String time = (String) itr4.next();   
+				if (!rating.equals("")){
+			  %>
+				<td class="for_table"> 
+				<b>Rating:</b> <b><%=rating %></b> <br>
+				<b>Time:</b>  <i><%=time %></i> <br>
+				<b>Note:</b> <i> <%=note %></i> <br>
+				</td>		
+				<%
+				}else{
+			  %>
+				<td class="for_table"> 
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				</td>		
+				<%				
+				}
+			}
+	    }    		
+		
+		%>
+
+
        </tr>
         <%
-          break; 
-        }%>    
+          }
+        %>    
       <%}%>    
     </table> 
 

@@ -74,6 +74,16 @@
     </servlet-mapping> 
     
     <servlet>
+       <servlet-name>admin_list_raters</servlet-name>
+       <servlet-class>org.humanizer.rating.AdminListRatersServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>admin_list_raters</servlet-name>
+        <url-pattern>/admin_list_raters</url-pattern>
+    </servlet-mapping>     
+    
+    
+    <servlet>
         <servlet-name>list_keyword</servlet-name>
         <servlet-class>org.humanizer.rating.ListKeywordServlet</servlet-class>
     </servlet>

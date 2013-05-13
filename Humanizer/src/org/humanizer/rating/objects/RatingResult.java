@@ -47,12 +47,14 @@ public class RatingResult {
 		
 	}
 	
-	public List init(String input){
+	public List init(String input, List raters){
 		List ret = new ArrayList();
+		Hashtable hs = new Hashtable();
 		try{
 			JsonParser parser = new JsonParser();
 			JsonObject obj = parser.parse(input).getAsJsonObject();
 			JsonArray arr = parser.parse(obj.get("rows").toString()).getAsJsonArray();
+			
 			for (int i = 0; i < arr.size(); i ++){
 				ArrayList elem = new ArrayList();
 				JsonObject obj2 = (JsonObject) arr.get(i);
@@ -67,13 +69,32 @@ public class RatingResult {
 				String time_stamp = doc.get("time_stamp").getAsString();
 				String item_id = doc.get("item_id").getAsString();
 				String task_id = doc.get("task_id").getAsString();
+				
 				elem.add(rater);
 				elem.add(relevance);
 				elem.add(note);				
 				//Long.g
-				//Date date = new Date(Long.parseLong(time_stamp)*1000);
-				//elem.add(date.toString());
-				elem.add(time_stamp);
+				Date date = new Date(Long.parseLong(time_stamp)*1000);
+				elem.add(date.toString());
+				//elem.add(time_stamp);
+				hs.put(rater, elem);
+				//ret.add(elem);
+				
+			}
+			//check against raters list
+			for (int i = 0; i < raters.size(); i ++){
+				String user = (String) raters.get(i);
+				ArrayList elem = new ArrayList();
+				if (hs.containsKey(user)){
+					elem = (ArrayList) hs.get(user);
+					
+				}else{
+					
+					elem.add(user);
+					elem.add("");
+					elem.add("");
+					elem.add("");
+				}
 				ret.add(elem);
 				
 			}

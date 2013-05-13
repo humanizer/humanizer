@@ -41,6 +41,12 @@ public class Tasks {
 			JsonObject obj4 = obj3.get("params").getAsJsonObject();
 			tmp2.add(obj4.get("query").getAsString());
 			tmp2.add(obj4.get("engine").getAsString());
+			JsonArray arrRaters =  obj3.get("raters").getAsJsonArray();
+			List tmp3 = new ArrayList();
+			for (int j = 0; j < arrRaters.size(); j ++){				
+				tmp3.add(arrRaters.get(j).getAsString());				
+			}
+			tmp2.add(tmp3);
 			data.add(tmp2);			
 		}
 		
