@@ -1,0 +1,61 @@
+{
+    "offset": 0,
+    "rows": [
+        {
+            "doc": {
+                "_id": "100",
+                "_rev": "5-4107870f943055a975fa04ea50c87111",
+                "item_ids": [
+                    "1000",
+                    "1001"
+                ],
+                "params": {
+                    "engine": "google",
+                    "query": "entertainment"
+                },
+                "project_id": "496",
+                "raters": [
+                    "kimcuong@gmail.com",
+                    "tnn225@gmail.com",
+                    "vinhlyq@gmail.com"
+                ],
+                "status": {
+                    "kimcuong@gmail.com": "done",
+                    "tnn225@gmail.com": "started",
+                    "vinhlyq@gmail.com": ""
+                },
+                "title": "Gooogle: entertainment",
+                "type": "search"
+            },
+            "id": "100",
+            "key": "100",
+            "value": {
+                "rev": "5-4107870f943055a975fa04ea50c87111"
+            }
+        },
+        {
+            "doc": {
+                "_id": "_design/api",
+                "_rev": "31-856f5149c65f9b01b94ef5f0dd48a797",
+                "language": "javascript",
+                "views": {
+                    "project_tasks": {
+                        "map": "function(doc) {\n  emit(doc.project_id, doc.title);\n}"
+                    },
+                    "rater_tasks": {
+                        "map": "function(doc) {\n  if (doc.raters != null) {\n    for (var rater in doc.status) {\n      emit(rater, doc.title + \"|\" + doc.status[rater]);\n}\n for (var iid in doc.item_ids) {\n      emit(iid, iid);\n}\n \n }\n}"
+                    },
+                    "rater_tasks_with_items": {
+                        "map": "function(doc) {\n if (doc.raters != null) {for (var rater in doc.status){ emit(rater,doc); emit(rater + \"|\" + doc.params.query,doc); } } \n}"
+                    }
+                }
+            },
+            "id": "_design/api",
+            "key": "_design/api",
+            "value": {
+                "rev": "31-856f5149c65f9b01b94ef5f0dd48a797"
+            }
+        }
+    ],
+    "total_rows": 2
+}
