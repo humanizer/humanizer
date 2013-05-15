@@ -40,7 +40,7 @@ public class Project {
 			tmp.put("name", obj3.get("name").getAsString());
 			tmp.put("rater_per_task", obj3.get("rater_per_task").getAsString());					
 			itemList.put(key, tmp);
-			List tmp2 = new ArrayList();
+			ArrayList tmp2 = new ArrayList();
 			tmp2.add(obj3.get("_id").getAsString());
 			tmp2.add(obj3.get("_rev").getAsString());
 			tmp2.add(obj3.get("name").getAsString());

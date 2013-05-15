@@ -22,6 +22,7 @@ import javax.servlet.http.HttpSession;
 
 import org.humanizer.rating.objects.Items;
 import org.humanizer.rating.objects.Project;
+import org.humanizer.rating.objects.Rater;
 import org.humanizer.rating.objects.RatingResult;
 import org.humanizer.rating.objects.Tasks;
 import org.humanizer.rating.objects.TasksByRater;
@@ -87,12 +88,39 @@ public class AdminListRatersServlet extends HttpServlet {
 	  List raterData = (ArrayList)currentTask.get(currentTask.size() - 1);
 	  
 	
+	  //3. Get raters data
+	  sURL = "http://humanizer.iriscouch.com/raters/_design/api_raters/_view/raters";	  
+	  sResult = HTTPClient.request(sURL);
+	  Rater raters = new Rater();
+	  List lstRater = raters.initData(sResult, raterData);
+	  
+	  raterData.clear();
+	  List remainRaterData = new ArrayList();
+	  
+	  for (int i = 0; i < lstRater.size(); i++){
+		  List tmp = (List)lstRater.get(i);
+		  String flag = (String)tmp.get(tmp.size() - 1);
+		  if (flag.equals("1")){
+			  //available list
+			  remainRaterData.add(tmp);
+		  }else{
+			  //current list
+			  raterData.add(tmp);
+		  }
+		  
+	  }
+	  
 	    
+	   req.setAttribute("projectId",projectId);
+	   req.setAttribute("taskId",taskId);
+	   req.setAttribute("task_name",taskName);
+	  
 	   req.setAttribute("project",currentProject);
 	   req.setAttribute("task",currentTask);
 	   req.setAttribute("raters",raterData);
-	   req.setAttribute("task",taskId);
-	   req.setAttribute("task_name",taskName);
+	   req.setAttribute("remainRaters",remainRaterData);
+	  
+	   
 	  //req.setAttribute("task_status", rater.getStatus());
 	  
 	  RequestDispatcher dispatcher = req.getRequestDispatcher("/admin_list_raters.jsp");
