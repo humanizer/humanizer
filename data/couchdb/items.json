@@ -1,0 +1,59 @@
+{
+    "offset": 0,
+    "rows": [
+        {
+            "doc": {
+                "_id": "1000",
+                "_rev": "2-111eba0a144c8e8dd43b07259975cfd3",
+                "name": "http://www.eonline.com/",
+                "value": {
+                    "position": 1,
+                    "snippet": "best <b>entertainment</b> source",
+                    "title": "EOnline magazine",
+                    "url": "http://www.eonline.com/"
+                }
+            },
+            "id": "1000",
+            "key": "1000",
+            "value": {
+                "rev": "2-111eba0a144c8e8dd43b07259975cfd3"
+            }
+        },
+        {
+            "doc": {
+                "_id": "1001",
+                "_rev": "1-97fdcbaf6056dfa78fb417cc747af024",
+                "name": "http://www.entertainment.com/save/home",
+                "value": {
+                    "position": 2,
+                    "snippet": " <b>entertainment</b> coupons",
+                    "title": "Start saving with exclusive deals",
+                    "url": "http://www.entertainment.com/save/home"
+                }
+            },
+            "id": "1001",
+            "key": "1001",
+            "value": {
+                "rev": "1-97fdcbaf6056dfa78fb417cc747af024"
+            }
+        },
+        {
+            "doc": {
+                "_id": "_design/api_items",
+                "_rev": "6-9cb404e23090c0baad2550806a3adf7f",
+                "language": "javascript",
+                "views": {
+                    "items_list": {
+                        "map": "function(doc) {\n  emit(doc._id, [doc.name, doc.value]);\n}"
+                    }
+                }
+            },
+            "id": "_design/api_items",
+            "key": "_design/api_items",
+            "value": {
+                "rev": "6-9cb404e23090c0baad2550806a3adf7f"
+            }
+        }
+    ],
+    "total_rows": 3
+}
