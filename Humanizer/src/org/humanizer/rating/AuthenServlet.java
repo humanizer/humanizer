@@ -56,6 +56,7 @@ public class AuthenServlet extends HttpServlet {
     String password = req.getParameter("login-password");
     if ((user == null)||(password == null)){
     	resp.sendRedirect("/login.jsp");
+    	return;
     }
     
     String password2 = password;

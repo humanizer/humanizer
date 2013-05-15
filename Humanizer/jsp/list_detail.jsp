@@ -13,7 +13,7 @@
   <!--<div class="row" id="topbar">
     
   </div> -->
-  <div class="keyword">Task name:  <b><%=request.getAttribute("task_name") %> </b>; keyword <b><%=request.getAttribute("keyword") %> </b></div>
+  <div class="keyword">Task name:  <b><%=request.getAttribute("task_name") %></b>; keyword <b><%=request.getAttribute("keyword") %> </b></div>
   <div class="list-detail clearfix">
     <ol class="search">
     <%Iterator itr;%>

@@ -21,13 +21,13 @@
 </script>     
 
 <script type="text/javascript"> 
-	$(function (){
+	/*$(function (){
 		$('#rating_form').submit(function () {
 		//alert("123");
 		 sendContactForm();
 		 return false;
 		});	
-	});
+	});*/
 </script>
 
 <script type="text/javascript"> 
@@ -61,7 +61,12 @@
 <body>
 <div class="container">
   <%
-    String url = (String)request.getAttribute("url");
+//     String url = (String)request.getAttribute("url");
+
+  	//Change to getParameter();
+  	//Because alway exist parameter url
+  	String url = (String)request.getParameter("url");
+  
     String task = (String)request.getAttribute("task");
     String keyword = (String)request.getAttribute("keyword");    
     String note = (String)request.getAttribute("note");    
@@ -77,7 +82,7 @@
       px = px*25;
     }
   %>
-  <iframe marginwidth="0" marginheight="0" frameborder="0" width="1000px" height="1500px"
+  <iframe id="content" marginwidth="0" marginheight="0" frameborder="0" width="1000px" height="1500px"
     bottommargin="0" rightmargin="0" leftmargin="0" topmargin="0" nosize scrolling="no" 
   
   src="<%=url %>"></iframe>
@@ -118,7 +123,7 @@
     <input type="hidden" id="type" name="type" value="new_rate" />
     <input type="hidden" id="rating" name="rating" value="3" />
     <input type="text" id="note" name="note" value=""/>
-    <input type="button" class="btnSubmit" onclick="doSubmit()" value=" "/>
+    <input type="submit" id="submit"  class="btnSubmit" value=" "/>
     <%
     }
     %>
@@ -128,7 +133,38 @@
   </div>
   </form>
 </div>
+<script type="text/javascript">
+$('#rating_form').live('submit',function(){
+	$.ajax({
+		type: "POST",
+		url: "rate",
+		data: $(this).serialize()
+		}).done(function( data ) {
 
+		var iframe_src = $('#content').attr('src');
+		var response = new Object();
+		
+		//extract data
+		response.container =  $(data).filter('div.container');
+		response.form = $(data).filter('div.rating-bottom');
+		
+		//update content of div container
+		
+		if(iframe_src == ''){
+			$('div.container').html(response.container);
+		}
+		
+		//update conntent of form
+		$('div.rating-bottom').html(response.form);
+		
+		}).fail(function() { 
+			alert("error"); 
+		});
+// 	alert("submit");
+	return false;
+});
+
+</script>
 
 </body>
 </html>

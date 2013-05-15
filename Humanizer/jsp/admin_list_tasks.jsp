@@ -13,41 +13,45 @@
   <!--<div class="row" id="topbar">
     
   </div> -->
-  <div class="keyword">Welcome back, <%= session.getAttribute("username") %>. Here by your task details:</div>
+  <div class="keyword">Details for project <b><%=request.getAttribute("project_name") %></b>: </div>
   <div class="list-key">
 
 	<table>
 		<tr>
 		<th class="for_table">No</th>
 		<th class="for_table">Task</th>
-		<th class="for_table">Status</th>
-		<th class="for_table">Keyword</th>
+		<th class="for_table">Query</th>
+		<th class="for_table">Engine</th>
+		<th class="for_table">Raters</th>
 		<th class="for_table">Items</th>
 		</tr>
 	
       <%Iterator itr;%>
-      <% List data= (List)request.getAttribute("data");
+      <% 
+	  String rater_count = (String)request.getAttribute("raters");
+	  String project = (String)request.getAttribute("project");
+	  List data= (List)request.getAttribute("data");
 	  int index = 0;
       for (itr=data.iterator(); itr.hasNext();) {
         List lst = (List) itr.next();
-        /*int size = lst.size() - 4;*/
         Iterator itr2;
         for (itr2=lst.iterator(); itr2.hasNext();) {
-          String task = (String) itr2.next();
-          String keyword = (String) itr2.next();
+		  index = index + 1;
+          String _id = (String) itr2.next();
+          String _rev = (String) itr2.next();
 		  String title = (String) itr2.next();
-		  String status = (String) itr2.next();
-		  String size = ((Object) itr2.next()).toString();
-          keyword = keyword.substring(1);
-          keyword = keyword.substring(0, keyword.length() - 1);
-		  index += 1;
+		  String query = (String) itr2.next();
+		  String engine = (String) itr2.next();
+		  List raters= (List)itr2.next();
+		  String rater_status = String.valueOf(raters.size()) + "/" + rater_count;
       %>
 		<tr>
 		<td class="for_table"><%=index %></td>
-		<td class="for_table"> <a href="/list_detail?task=<%=task%>&keyword=<%=keyword%>&task_name=<%=title%>"><%=title%></a></td>
-		<td class="for_table"><%=status %></td>
-		<td class="for_table"><a href="/list_detail?task=<%=task%>&keyword=<%=keyword%>&task_name=<%=title%>"><%=keyword%></a></td>
-		<td class="for_table"><em> <%=size%> items</em></td>
+		<td class="for_table"><%=title %></td>
+		<td class="for_table"><%=query %></td>
+		<td class="for_table"><%=engine %></td>
+		<td class="for_table"><a href="/admin_list_raters?task=<%=_id%>&task_name=<%=title%>&project=<%=project%>"><%=rater_status %></a></td>
+		<td class="for_table"><a href="/admin_list_items?task=<%=_id%>&task_name=<%=title%>&project=<%=project%>">View details</a></td>
        </tr>
         <%
           break; 

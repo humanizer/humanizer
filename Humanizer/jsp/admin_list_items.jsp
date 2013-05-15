@@ -13,45 +13,91 @@
   <!--<div class="row" id="topbar">
     
   </div> -->
-  <div class="keyword">Welcome back, <%= session.getAttribute("username") %>. Here by your task details:</div>
+  <div class="keyword">Details for task <b><%=request.getAttribute("task_name") %></b>: </div>
   <div class="list-key">
 
 	<table>
 		<tr>
 		<th class="for_table">No</th>
-		<th class="for_table">Task</th>
-		<th class="for_table">Status</th>
-		<th class="for_table">Keyword</th>
-		<th class="for_table">Items</th>
+		<th class="for_table">Title</th>
+		<th class="for_table">URL</th>
+		<th class="for_table">Snippet</th>
+		<th class="for_table">Position</th>
+		<%
+			List raters= (List)request.getAttribute("raters");
+			Iterator iRaters;
+			for (iRaters=raters.iterator(); iRaters.hasNext();) {	
+				String rater = (String) iRaters.next();
+				%>
+					<th class="for_table"><%=rater %> </th>
+				<%
+			}
+
+		%>
+		
+		<!--th class="for_table">Rating Details</th-->
 		</tr>
-	
+		
       <%Iterator itr;%>
       <% List data= (List)request.getAttribute("data");
 	  int index = 0;
+	  String task = (String)request.getAttribute("task");
       for (itr=data.iterator(); itr.hasNext();) {
-        List lst = (List) itr.next();
-        /*int size = lst.size() - 4;*/
+        List lst = (List) itr.next();        
         Iterator itr2;
         for (itr2=lst.iterator(); itr2.hasNext();) {
-          String task = (String) itr2.next();
-          String keyword = (String) itr2.next();
-		  String title = (String) itr2.next();
-		  String status = (String) itr2.next();
-		  String size = ((Object) itr2.next()).toString();
-          keyword = keyword.substring(1);
-          keyword = keyword.substring(0, keyword.length() - 1);
 		  index += 1;
+		  String _id = (String) itr2.next();
+		  String _rev = (String) itr2.next();
+		  String url = (String) itr2.next();
+          String title = (String) itr2.next();          
+		  String snippet = (String) itr2.next();
+		  String position = (String) itr2.next();		 
+		  List data2 = (List) itr2.next();
       %>
 		<tr>
 		<td class="for_table"><%=index %></td>
-		<td class="for_table"> <a href="/list_detail?task=<%=task%>&keyword=<%=keyword%>&task_name=<%=title%>"><%=title%></a></td>
-		<td class="for_table"><%=status %></td>
-		<td class="for_table"><a href="/list_detail?task=<%=task%>&keyword=<%=keyword%>&task_name=<%=title%>"><%=keyword%></a></td>
-		<td class="for_table"><em> <%=size%> items</em></td>
+		<td class="for_table"><%=title %></td>
+		<td class="for_table"><%=url %></td>
+		<td class="for_table"><%=snippet %></td>
+		<td class="for_table"><%=position %></td>
+		
+		<%
+		 Iterator itr3;
+		 for (itr3=data2.iterator(); itr3.hasNext();) {
+			List lst3 = (List) itr3.next();        
+			Iterator itr4;
+			for (itr4=lst3.iterator(); itr4.hasNext();) {		 
+			  
+				String user = (String) itr4.next();
+				String rating = (String) itr4.next();
+				String note = (String) itr4.next();
+				String time = (String) itr4.next();   
+				if (!rating.equals("")){
+			  %>
+				<td class="for_table"> 
+				<b>Rating:</b> <b><%=rating %></b> <br>
+				<b>Time:</b>  <i><%=time %></i> <br>
+				<b>Note:</b> <i> <%=note %></i> <br>
+				</td>		
+				<%
+				}else{
+			  %>
+				<td class="for_table"> 
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				</td>		
+				<%				
+				}
+			}
+	    }    		
+		
+		%>
+
+
        </tr>
         <%
-          break; 
-        }%>    
+          }
+        %>    
       <%}%>    
     </table> 
 

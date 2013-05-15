@@ -69,14 +69,14 @@ public class RatingServlet extends HttpServlet {
     StringBuilder sb = new StringBuilder();
     
     //1. Get items list    
-    String sURL = "http://humanizer.iriscouch.com/items/_design/api_items/_view/items_list";
+    String sURL = "http://humanizer.iriscouch.com/items/_design/index/_view/items_list";
     String sResult = HTTPClient.request(sURL);
     Items item = new Items();
     item.initItemList(sResult);  
     
     
     //2. Get rating by rater list
-    sURL = "http://humanizer.iriscouch.com/ratings/_design/api/_view/rating_by_rater?startkey=%22" + username + "," + item_id + "%22&endkey=%22" + username + "," + item_id + "%22";
+    sURL = "http://humanizer.iriscouch.com/ratings/_design/api/_view/rating_by_rater_task_item?startkey=%22" + username + "%7C" + task  + "%7C" + item_id + "%22&endkey=%22" + username + "%7C" + task + "%7C" + item_id + "%22";
     sResult = HTTPClient.request(sURL);
     
     

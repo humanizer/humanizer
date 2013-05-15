@@ -9,6 +9,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -63,24 +64,41 @@ public class ListKeywordServlet extends HttpServlet {
 		return;
 	}
     StringBuilder sb = new StringBuilder();
-    
+    String sURL = "";
+    String sResult = "";
     //1. Get items list
-    String sURL = "http://humanizer.iriscouch.com/items/_design/api_items/_view/items_list";
+    /*String sURL = "http://humanizer.iriscouch.com/items/_design/index/_view/items_list";
     String sResult = HTTPClient.request(sURL);
     Items item = new Items();
-    item.initItemList(sResult);
+    item.initItemList(sResult);*/
     
     
-    //2. Get Task list for current user
+    //1. Get Task list for current user
+    //username = URLEncoder.encode(username,"UTF-8");
     sURL = "http://humanizer.iriscouch.com/tasks/_design/api/_view/rater_tasks_with_items?startkey=%22" + username + "%22&endkey=%22" + username + "%22";
     sResult = HTTPClient.request(sURL);
     
     
     TasksByRater rater = new TasksByRater();
-    rater.setItemList(item.getItemList());
+    //rater.setItemList(item.getItemList());
     rater.init(sResult);
+    
+    //2. get Items details for each task
+    ArrayList data = (ArrayList) rater.getData();
+    List newData = new ArrayList();
+    for (int i = 0; i < data.size(); i++){
+    	ArrayList elem = (ArrayList) data.get(i);
+    	String id = elem.get(0).toString();
+    	sURL = "http://humanizer.iriscouch.com/items/_design/index/_view/items_in_task?startkey=%22" + id + "%22&endkey=%22" + id + "%22&include_docs=true";
+    	sResult = HTTPClient.request(sURL);
+        Items item = new Items();
+        item.initItemListForTask(sResult);
+        elem.add(item.getItemList().size());
+    	newData.add(elem);
+    	
+    }
    
-    req.setAttribute("data", rater.getData());
+    req.setAttribute("data", newData);
     
     
 

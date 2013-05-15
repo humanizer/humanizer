@@ -8,7 +8,9 @@ package org.humanizer.rating.objects;
  *
  */
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Hashtable;
+import java.util.List;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -26,6 +28,7 @@ public class RatingResult {
 	public String relevance;
 	public String note;
 	public String item_id;
+	public String task_id;
 	public String _id;
 	public String _rev;
 	
@@ -42,6 +45,63 @@ public class RatingResult {
 		
 		return ret;
 		
+	}
+	
+	public List init(String input, List raters){
+		List ret = new ArrayList();
+		Hashtable hs = new Hashtable();
+		try{
+			JsonParser parser = new JsonParser();
+			JsonObject obj = parser.parse(input).getAsJsonObject();
+			JsonArray arr = parser.parse(obj.get("rows").toString()).getAsJsonArray();
+			
+			for (int i = 0; i < arr.size(); i ++){
+				ArrayList elem = new ArrayList();
+				JsonObject obj2 = (JsonObject) arr.get(i);
+				//String task = obj2.get("id").getAsString();
+				//elem.add(keyword);
+				JsonObject doc = parser.parse(obj2.get("value").toString()).getAsJsonObject();
+				String relevance = doc.get("relevance").getAsString();//
+				String note = doc.get("note").getAsString();//
+				String _rev = doc.get("_rev").getAsString();
+				String _id = doc.get("_id").getAsString();
+				String rater = doc.get("rater").getAsString();
+				String time_stamp = doc.get("time_stamp").getAsString();
+				String item_id = doc.get("item_id").getAsString();
+				String task_id = doc.get("task_id").getAsString();
+				
+				elem.add(rater);
+				elem.add(relevance);
+				elem.add(note);				
+				//Long.g
+				Date date = new Date(Long.parseLong(time_stamp)*1000);
+				elem.add(date.toString());
+				//elem.add(time_stamp);
+				hs.put(rater, elem);
+				//ret.add(elem);
+				
+			}
+			//check against raters list
+			for (int i = 0; i < raters.size(); i ++){
+				String user = (String) raters.get(i);
+				ArrayList elem = new ArrayList();
+				if (hs.containsKey(user)){
+					elem = (ArrayList) hs.get(user);
+					
+				}else{
+					
+					elem.add(user);
+					elem.add("");
+					elem.add("");
+					elem.add("");
+				}
+				ret.add(elem);
+				
+			}
+		}catch (Exception ex){
+			ex.printStackTrace();
+		}
+		return ret;
 	}
 	
 	public boolean init(String input, String item_id_check, String rater_check){
@@ -68,6 +128,7 @@ public class RatingResult {
 				String _rev = doc.get("_rev").getAsString();
 				String _id = doc.get("_id").getAsString();
 				String item_id = doc.get("item_id").getAsString();
+				String task_id = doc.get("task_id").getAsString();
 				if ( (rater.equals(rater_check)) && 
 						(item_id.equals(item_id_check)) ){
 					bIsFound = true;
@@ -77,7 +138,8 @@ public class RatingResult {
 					this.note = note;
 					this.item_id = item_id;
 					this._rev = _rev;
-					this._id = _id;					
+					this._id = _id;				
+					this.task_id = task_id;
 					return true;
 				}
 				//data.add(elem);

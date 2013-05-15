@@ -27,6 +27,62 @@
         <servlet-name>register</servlet-name>
         <url-pattern>/register</url-pattern>
     </servlet-mapping>
+    
+    <servlet>
+       <servlet-name>admin</servlet-name>
+       <servlet-class>org.humanizer.rating.AdminServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>admin</servlet-name>
+        <url-pattern>/admin</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+       <servlet-name>admin_list_projects</servlet-name>
+       <servlet-class>org.humanizer.rating.AdminListProjectsServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>admin_list_projects</servlet-name>
+        <url-pattern>/admin_list_projects</url-pattern>
+    </servlet-mapping>    
+    
+    <servlet>
+       <servlet-name>admin_list_tasks</servlet-name>
+       <servlet-class>org.humanizer.rating.AdminListTasksServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>admin_list_tasks</servlet-name>
+        <url-pattern>/admin_list_tasks</url-pattern>
+    </servlet-mapping>      
+    
+    <servlet>
+       <servlet-name>admin_list_items</servlet-name>
+       <servlet-class>org.humanizer.rating.AdminListItemsServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>admin_list_items</servlet-name>
+        <url-pattern>/admin_list_items</url-pattern>
+    </servlet-mapping> 
+
+    <servlet>
+       <servlet-name>admin_list_ratings</servlet-name>
+       <servlet-class>org.humanizer.rating.AdminListRatingsServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>admin_list_ratings</servlet-name>
+        <url-pattern>/admin_list_ratings</url-pattern>
+    </servlet-mapping> 
+    
+    <servlet>
+       <servlet-name>admin_list_raters</servlet-name>
+       <servlet-class>org.humanizer.rating.AdminListRatersServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>admin_list_raters</servlet-name>
+        <url-pattern>/admin_list_raters</url-pattern>
+    </servlet-mapping>     
+    
+    
     <servlet>
         <servlet-name>list_keyword</servlet-name>
         <servlet-class>org.humanizer.rating.ListKeywordServlet</servlet-class>
