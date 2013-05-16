@@ -1,0 +1,283 @@
+{
+    "offset": 0,
+    "rows": [
+        {
+            "doc": {
+                "_id": "10729be5d4903ccee773d4a33f0039aa",
+                "_rev": "4-70a1b5216b59de51aa06e4b26315e319",
+                "note": "another suprising new to point 3  :)",
+                "query": "entertainment",
+                "rater": "kimcuong@gmail.com",
+                "relevance": "3",
+                "task_id": "49abdb0279e6d16429b4cb3624001bd9",
+                "url": "http://www.entertainment.com/save/home"
+            },
+            "id": "10729be5d4903ccee773d4a33f0039aa",
+            "key": "10729be5d4903ccee773d4a33f0039aa",
+            "value": {
+                "rev": "4-70a1b5216b59de51aa06e4b26315e319"
+            }
+        },
+        {
+            "doc": {
+                "_id": "10729be5d4903ccee773d4a33f003d27",
+                "_rev": "1-0edf8b4c83c667d31668d8f87de5bec3",
+                "note": "Of course suprising....",
+                "query": "entertainment",
+                "rater": "kimcuong@gmail.com",
+                "relevance": "2",
+                "task_id": "49abdb0279e6d16429b4cb3624001bd9",
+                "url": "http://www.sfgate.com/entertainment/"
+            },
+            "id": "10729be5d4903ccee773d4a33f003d27",
+            "key": "10729be5d4903ccee773d4a33f003d27",
+            "value": {
+                "rev": "1-0edf8b4c83c667d31668d8f87de5bec3"
+            }
+        },
+        {
+            "doc": {
+                "_id": "61d0b2f5bdb7ef745e66e63f9a0003f2",
+                "_rev": "1-bb7e38824cde2364ab6dfd7d197c85a2",
+                "note": "cool",
+                "query": "entertainment",
+                "rater": "kimcuong@gmail.com",
+                "relevance": "5",
+                "task_id": "49abdb0279e6d16429b4cb3624001bd9",
+                "url": "http://www.sfgate.com/entertainment/"
+            },
+            "id": "61d0b2f5bdb7ef745e66e63f9a0003f2",
+            "key": "61d0b2f5bdb7ef745e66e63f9a0003f2",
+            "value": {
+                "rev": "1-bb7e38824cde2364ab6dfd7d197c85a2"
+            }
+        },
+        {
+            "doc": {
+                "_id": "61d0b2f5bdb7ef745e66e63f9a000623",
+                "_rev": "1-bb7e38824cde2364ab6dfd7d197c85a2",
+                "note": "cool",
+                "query": "entertainment",
+                "rater": "kimcuong@gmail.com",
+                "relevance": "5",
+                "task_id": "49abdb0279e6d16429b4cb3624001bd9",
+                "url": "http://www.sfgate.com/entertainment/"
+            },
+            "id": "61d0b2f5bdb7ef745e66e63f9a000623",
+            "key": "61d0b2f5bdb7ef745e66e63f9a000623",
+            "value": {
+                "rev": "1-bb7e38824cde2364ab6dfd7d197c85a2"
+            }
+        },
+        {
+            "doc": {
+                "_id": "61d0b2f5bdb7ef745e66e63f9a00121d",
+                "_rev": "1-967a00dff5e02add41819138abb3284d"
+            },
+            "id": "61d0b2f5bdb7ef745e66e63f9a00121d",
+            "key": "61d0b2f5bdb7ef745e66e63f9a00121d",
+            "value": {
+                "rev": "1-967a00dff5e02add41819138abb3284d"
+            }
+        },
+        {
+            "doc": {
+                "_id": "61d0b2f5bdb7ef745e66e63f9a00157a",
+                "_rev": "1-967a00dff5e02add41819138abb3284d"
+            },
+            "id": "61d0b2f5bdb7ef745e66e63f9a00157a",
+            "key": "61d0b2f5bdb7ef745e66e63f9a00157a",
+            "value": {
+                "rev": "1-967a00dff5e02add41819138abb3284d"
+            }
+        },
+        {
+            "doc": {
+                "_id": "7aa9cf9670b3b156a57459bdf5000207",
+                "_rev": "1-967a00dff5e02add41819138abb3284d"
+            },
+            "id": "7aa9cf9670b3b156a57459bdf5000207",
+            "key": "7aa9cf9670b3b156a57459bdf5000207",
+            "value": {
+                "rev": "1-967a00dff5e02add41819138abb3284d"
+            }
+        },
+        {
+            "doc": {
+                "_id": "7ed37b789cf4d87c3171d60c1a000f1c",
+                "_rev": "4-5099a6bdb83180ba428eb188026f61f8",
+                "note": "this is surprising, of course, but need to back to 2, and then go to 3",
+                "query": "entertainment",
+                "rater": "kimcuong@gmail.com",
+                "relevance": "3",
+                "task_id": "49abdb0279e6d16429b4cb3624001bd9",
+                "url": "http://www.eonline.com/"
+            },
+            "id": "7ed37b789cf4d87c3171d60c1a000f1c",
+            "key": "7ed37b789cf4d87c3171d60c1a000f1c",
+            "value": {
+                "rev": "4-5099a6bdb83180ba428eb188026f61f8"
+            }
+        },
+        {
+            "doc": {
+                "_id": "8dee11963a22c8445469bf1bd4000559",
+                "_rev": "1-546a74b93cde6bbbdb2bac4ae50c7e12",
+                "note": "anthor rating",
+                "query": "entertainment",
+                "rater": "kimcuong@gmail.com",
+                "relevance": "5",
+                "task_id": "49abdb0279e6d16429b4cb3624001bd9",
+                "url": "http://www.etonline.com/"
+            },
+            "id": "8dee11963a22c8445469bf1bd4000559",
+            "key": "8dee11963a22c8445469bf1bd4000559",
+            "value": {
+                "rev": "1-546a74b93cde6bbbdb2bac4ae50c7e12"
+            }
+        },
+        {
+            "doc": {
+                "_id": "95155a299c553bb991e80fb1a60007b1",
+                "_rev": "1-c0f1d41c2ffa88174e0a299013dfaa67",
+                "note": "test",
+                "query": "entertainment",
+                "rater": "kimcuong@gmail.com",
+                "relevance": "4",
+                "task_id": "49abdb0279e6d16429b4cb3624001bd9",
+                "url": "http://www.sfexaminer.com/entertainment"
+            },
+            "id": "95155a299c553bb991e80fb1a60007b1",
+            "key": "95155a299c553bb991e80fb1a60007b1",
+            "value": {
+                "rev": "1-c0f1d41c2ffa88174e0a299013dfaa67"
+            }
+        },
+        {
+            "doc": {
+                "_id": "_design/api",
+                "_rev": "5-9bbd3f19c52ec2d8e40ab0079862daf0",
+                "language": "javascript",
+                "views": {
+                    "rating": {
+                        "map": "function(doc) {\n  emit(doc.task_id, doc.rater);\n}"
+                    },
+                    "rating_by_rater": {
+                        "map": "function(doc) {\n  emit(doc._id, doc);\n}"
+                    },
+                    "rating_by_rater2": {
+                        "map": "function(doc) {\n  emit(doc.task_id + \"|\" + doc.rater, doc);\n}"
+                    },
+                    "rating_by_rater_as_key": {
+                        "map": "function(doc) {\n  emit(doc.rater, doc);\n}"
+                    }
+                }
+            },
+            "id": "_design/api",
+            "key": "_design/api",
+            "value": {
+                "rev": "5-9bbd3f19c52ec2d8e40ab0079862daf0"
+            }
+        },
+        {
+            "doc": {
+                "_id": "b72e89ad697a97059dc6d6ce54000f85",
+                "_rev": "1-d6dbf397dc9890708679f228d5136529",
+                "note": "good result",
+                "query": "entertainment",
+                "rater": "kimcuong@gmail.com",
+                "relevance": "5",
+                "task_id": "49abdb0279e6d16429b4cb3624001bd9",
+                "url": "http://en.wikipedia.org/wiki/Entertainment"
+            },
+            "id": "b72e89ad697a97059dc6d6ce54000f85",
+            "key": "b72e89ad697a97059dc6d6ce54000f85",
+            "value": {
+                "rev": "1-d6dbf397dc9890708679f228d5136529"
+            }
+        },
+        {
+            "doc": {
+                "_id": "b72e89ad697a97059dc6d6ce54001b5f",
+                "_rev": "1-5b6af74832bf4376c59107625845c6a0",
+                "note": "crappy",
+                "query": "entertainment",
+                "rater": "kimcuong@gmail.com",
+                "relevance": "2",
+                "task_id": "49abdb0279e6d16429b4cb3624001bd9",
+                "url": "http://www.santaclara.org/dining/"
+            },
+            "id": "b72e89ad697a97059dc6d6ce54001b5f",
+            "key": "b72e89ad697a97059dc6d6ce54001b5f",
+            "value": {
+                "rev": "1-5b6af74832bf4376c59107625845c6a0"
+            }
+        },
+        {
+            "doc": {
+                "_id": "f99a3be100ad6a953e50d25cae00007f",
+                "_rev": "1-e05699377edcb87e9c7ef9456fc6d774",
+                "note": "",
+                "query": "entertainment",
+                "rater": "kimcuong@gmail.com",
+                "relevance": "5",
+                "task_id": "49abdb0279e6d16429b4cb3624001bd9",
+                "url": "http://sethgodin.typepad.com/seths_blog/2012/12/utility-vs-entertainment.html"
+            },
+            "id": "f99a3be100ad6a953e50d25cae00007f",
+            "key": "f99a3be100ad6a953e50d25cae00007f",
+            "value": {
+                "rev": "1-e05699377edcb87e9c7ef9456fc6d774"
+            }
+        },
+        {
+            "doc": {
+                "_id": "kimcuong@gmail.com,1000",
+                "_rev": "3-f0fbcda9e47087501c0502eb2ed550ab",
+                "item_id": "1000",
+                "note": "This is ok result.",
+                "rater": "kimcuong@gmail.com",
+                "relevance": "3",
+                "time_stamp": "1365055237"
+            },
+            "id": "kimcuong@gmail.com,1000",
+            "key": "kimcuong@gmail.com,1000",
+            "value": {
+                "rev": "3-f0fbcda9e47087501c0502eb2ed550ab"
+            }
+        },
+        {
+            "doc": {
+                "_id": "kimcuong@gmail.com,1001",
+                "_rev": "5-8f305cb6ae4af4a891f7f70490570c16",
+                "item_id": "1001",
+                "note": "This is a terrible result, but now I rate to 4",
+                "rater": "kimcuong@gmail.com",
+                "relevance": "4",
+                "time_stamp": "1365069525"
+            },
+            "id": "kimcuong@gmail.com,1001",
+            "key": "kimcuong@gmail.com,1001",
+            "value": {
+                "rev": "5-8f305cb6ae4af4a891f7f70490570c16"
+            }
+        },
+        {
+            "doc": {
+                "_id": "vinhlyq@gmail.com,1000",
+                "_rev": "1-2f9042079f9d08b06527d10afeceb870",
+                "item_id": "1000",
+                "note": "This is greeeeat result",
+                "rater": "vinhlyq@gmail.com",
+                "relevance": 5,
+                "timestamp": 1364283768
+            },
+            "id": "vinhlyq@gmail.com,1000",
+            "key": "vinhlyq@gmail.com,1000",
+            "value": {
+                "rev": "1-2f9042079f9d08b06527d10afeceb870"
+            }
+        }
+    ],
+    "total_rows": 17
+}
