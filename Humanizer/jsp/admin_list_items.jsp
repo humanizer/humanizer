@@ -1,3 +1,4 @@
+<jsp:directive.page contentType="text/html;charset=utf-8"  language="java" isELIgnored="false" />
 <%@ page import="java.io.*" %> 
 <%@page language="java" import="java.util.*" %>
 <head>

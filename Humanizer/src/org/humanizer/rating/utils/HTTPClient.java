@@ -34,7 +34,7 @@ public class HTTPClient {
 		            // OK
 		        	//String line = "!23";
 		        	BufferedReader reader =
-		    	          new BufferedReader(new InputStreamReader(connection.getInputStream()));
+		    	          new BufferedReader(new InputStreamReader(connection.getInputStream(), "UTF-8"));
 		        	String line;
 		        	while ((line = reader.readLine()) != null) {
 		        		ret.append(line);

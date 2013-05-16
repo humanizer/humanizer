@@ -1,7 +1,9 @@
+
 <%@ page import="java.io.*" %> 
 <%@page language="java" import="java.util.*" %>
+
 <head>
-  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" />
+  <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
   <link href="css/style.css" rel="stylesheet" type="text/css" />
   <title>Keyword listing</title>
   
