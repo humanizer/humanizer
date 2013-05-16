@@ -123,6 +123,8 @@ public class ListDetailServlet extends HttpServlet {
   //req.setAttribute("task_status", rater.getStatus());
   
   RequestDispatcher dispatcher = req.getRequestDispatcher("/list_detail.jsp");
+  resp.setCharacterEncoding("UTF-8");
+  resp.setContentType("text/html; charset=UTF-8");  
 
   if (dispatcher != null){
     try {

@@ -103,6 +103,8 @@ public class ListKeywordServlet extends HttpServlet {
     
 
     RequestDispatcher dispatcher = req.getRequestDispatcher("/list_keyword.jsp");
+    resp.setCharacterEncoding("UTF-8");
+    resp.setContentType("text/html; charset=UTF-8");    
 
     if (dispatcher != null){
       try {
