@@ -118,12 +118,23 @@ public class RateServlet extends HttpServlet {
     
     //2. Request rating information, resubmit performed    
     StringBuilder sb = new StringBuilder();
+    String sURL = "";
+    String sResult = "";
 
+    /*
     //2.1. Get items list    
     String sURL = "http://humanizer.iriscouch.com/items/_design/index/_view/items_list";
     String sResult = HTTPClient.request(sURL);
     Items item = new Items();
-    item.initItemList(sResult);  
+    item.initItemList(sResult);
+    */  
+    
+    //2.1. Get Items list 	
+    sURL = "http://humanizer.iriscouch.com/items/_design/index/_view/items_in_task?startkey=%22" + task + "%22&endkey=%22" + task + "%22&include_docs=true";
+    sResult = HTTPClient.request(sURL);
+    Items item = new Items();
+    item.initItemListForTask(sResult);    
+        
     
     
     //2.2. Get rating by rater list
