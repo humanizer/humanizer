@@ -1,0 +1,5 @@
+{"total_rows":3,"offset":0,"rows":[
+{"id":"496","key":"496","value":{"rev":"3-62435aefa625b444b49c817207eaddb2"},"doc":{"_id":"496","_rev":"3-62435aefa625b444b49c817207eaddb2","name":"Google for Vietnamese queries","rater_per_task":3}},
+{"id":"49abdb0279e6d16429b4cb3624001736","key":"49abdb0279e6d16429b4cb3624001736","value":{"rev":"4-e2a48613e50a2586c6587c67c6f7259c"},"doc":{"_id":"49abdb0279e6d16429b4cb3624001736","_rev":"4-e2a48613e50a2586c6587c67c6f7259c","name":"Bing VS Google","rater_per_task":3}},
+{"id":"_design/api","key":"_design/api","value":{"rev":"2-8aa161d5f012288b6b41b24b5febbba9"},"doc":{"_id":"_design/api","_rev":"2-8aa161d5f012288b6b41b24b5febbba9","language":"javascript","views":{"list_projects":{"map":"function(doc) {\n  emit(doc._id, doc);\n}"}}}}
+]}
