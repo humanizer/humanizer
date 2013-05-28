@@ -8,6 +8,7 @@ from scrapy.selector import HtmlXPathSelector
 from scrapy.spider import BaseSpider
 import urllib
 import urlparse
+import simplejson
 
 from searchengine.items import SearchengineItem
 
@@ -17,15 +18,13 @@ LOCALE = "vn"
 def ConvertQueryToUrl(query):
     if isinstance(query, str):
         query = unicode(query) 
-    parameters = { 'q' : query.encode('utf-8'),
-                   'hl' : LANGUAGE,
-                   'gl' : LOCALE }
-    return 'http://www.google.com/search?' + urllib.urlencode(parameters)
+    parameters = { 'query' : query.encode('utf-8') }
+    return 'http://coccoc.com/instant/search.json?' + urllib.urlencode(parameters)
 
 def ConvertUrlToQuery(url):
     urlQuery = urlparse.urlparse(url).query
     parameters = dict(urlparse.parse_qsl(urlQuery))
-    query = parameters["q"]
+    query = parameters["query"]
     return urllib.unquote_plus(query)
 
 def cleanText(data):
@@ -41,9 +40,9 @@ def loadQueryFromFile(queryFile):
     f = codecs.open(queryFile, encoding='utf-8')
     return [line.strip() for line in f]
         
-class GoogleSpider(BaseSpider):
-    name = 'google'
-    allowed_domains = ['google.com']
+class CoccocSpider(BaseSpider):
+    name = 'coccoc'
+    allowed_domains = ['coccoc.com']
     start_urls = []
     couch = None
     
@@ -53,12 +52,12 @@ class GoogleSpider(BaseSpider):
         self.project_id = project_id
         self.queries = loadQueryFromFile(query_file)
         print "Loaded %d queries." % len(self.queries)
-        GoogleSpider.start_urls = map(ConvertQueryToUrl, self.queries)
-        GoogleSpider.couch = couchdb.Server("http://humanizer:123456@humanizer.iriscouch.com")
-        assert self.isValidProjectId(GoogleSpider.couch["projects"], 
+        CoccocSpider.start_urls = map(ConvertQueryToUrl, self.queries)
+        CoccocSpider.couch = couchdb.Server("http://humanizer:123456@humanizer.iriscouch.com")
+        assert self.isValidProjectId(CoccocSpider.couch["projects"], 
                                      self.project_id)
-        self.tasksDb = GoogleSpider.couch["tasks"]
-        self.itemsDb = GoogleSpider.couch["items"]
+        self.tasksDb = CoccocSpider.couch["tasks"]
+        self.itemsDb = CoccocSpider.couch["items"]
 
     def isValidProjectId(self, projectDb, project_id):
         try:
@@ -70,36 +69,32 @@ class GoogleSpider(BaseSpider):
         
         
     def parse(self, response):
-        hxs = HtmlXPathSelector(response)
-        
-        center_column = hxs.select("//div[@id='ires']") 
-        if not center_column:
+#         import pdb;pdb.set_trace()
+        json = simplejson.loads(response.body)
+        if not json.get('result'):
+            print "Empty result"
             return
-        
+        results = json.get('result')
         query = ConvertUrlToQuery(response.url)
         task = {"params" : { "type": "search",
                              "query" : query,
-                             "engine" : "google",
+                             "engine" : "coccoc",
                              "language": LANGUAGE,
                              "locale": LOCALE },
                 "project_id" : self.project_id,
                 "raters" : [],
                 "status" : {},
                 "type" : "search",
-                "title" : "Google: " + query}        
+                "title" : "search for [%s]" % query}        
         task_id, _ = self.tasksDb.save(task)
         print "Saved task ", task_id
 
         position = 0
-        for result in center_column.select("//li[@class='g']"):
+        for result in results:
             i = SearchengineItem()
-            title = result.select(".//h3[@class='r']/a")
-            if title:
-                i['title']= cleanText(title.extract()[0])
-                i['url'] = title.select("@href").extract()[0]
-            snippet = result.select(".//span[@class='st']")
-            if snippet:
-                i['snippet'] = snippet.extract()[0]
+            i['title']= cleanText(result['title'])
+            i['url'] = result['url']
+            i['snippet'] = result['content']
             if i.is_valid():
                 position += 1
                 i['position'] = position
@@ -107,10 +102,10 @@ class GoogleSpider(BaseSpider):
                 print "Extracted ", i, "saved to", docid
         
         # Local result
-        localBlock = hxs.select("//div[contains(@class,'kno-fb-ctx')]")
-        if localBlock:
-            print "Got local result"
-            divHtml = localBlock[0].extract()
-            docid, _ = self.itemsDb.save({"name" : "local_result", "value" : divHtml, "task_id" : task_id})
-            print "Extracted local result saved to", docid
+#         localBlock = hxs.select("//div[@class='center-content']/div[@class='pois-panel']")
+#         if localBlock:
+#             print "Got local result"
+#             divHtml = localBlock[0].extract()
+#             docid, _ = self.itemsDb.save({"name" : "local_result", "value" : divHtml, "task_id" : task_id})
+#             print "Extracted local result saved to", docid
             
