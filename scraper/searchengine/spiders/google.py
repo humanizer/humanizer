@@ -14,8 +14,11 @@ QUERIES = ['free movies',
            'bia hơi hà nội']
 #QUERIES = ['entertainment']
 
+LANGUAGE = "vi"
+LOCALE = "vn"
+
 def ConvertQueryToUrl(query):
-    return 'http://www.google.com/search?q=' + urllib.quote_plus(query) + '&hl=vi&gl=vn'
+    return 'http://www.google.com/search?q=' + urllib.quote_plus(query) + '&hl=%s&gl=%s' % (LANGUAGE, LOCALE)
 
 def ConvertUrlToQuery(url):
     url = url[len('http://www.google.com/search?q='):]
@@ -54,7 +57,11 @@ class GoogleSpider(BaseSpider):
             return
         
         query = ConvertUrlToQuery(response.url)
-        task = {"params" : { "type": "search", "query" : query, "engine" : "google" },
+        task = {"params" : { "type": "search",
+                             "query" : query,
+                             "engine" : "google",
+                             "language": LANGUAGE,
+                             "locale": LOCALE },
                 "project_id" : PROJECT_ID,
                 "raters" : [RATER],
                 "status" : {RATER : "new"},

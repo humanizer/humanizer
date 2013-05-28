@@ -57,7 +57,7 @@
     <enhance_war war="war" />
   </target>
 
-  <target name="runserver" depends="datanucleusenhance" description="Starts the development server.">
+  <target name="runserver" depends="compile" description="Starts the development server.">
     <dev_appserver war="war" port="8668">
       <options>
         <arg value="--jvm_flag=-Xdebug" />

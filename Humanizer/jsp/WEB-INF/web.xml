@@ -115,6 +115,14 @@
         <servlet-name>rate</servlet-name>
         <url-pattern>/rate</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>sxs</servlet-name>
+        <servlet-class>org.humanizer.rating.SideBySideServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>sxs</servlet-name>
+        <url-pattern>/compare</url-pattern>
+    </servlet-mapping>
     <!-- 
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
