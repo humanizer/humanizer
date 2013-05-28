@@ -32,15 +32,7 @@
     </copy>
   </target>
 
-  <target name="copyjsp" description="Copies jsp to WAR.">
-    <copy todir="war/" flatten="false">
-      <fileset dir="jsp">
-        <include name="**/*.*" />
-      </fileset>
-    </copy>
-  </target>
-
-  <target name="compile" depends="copyjsp,copyjars,copylibs"
+  <target name="compile" depends="copyjars,copylibs"
     description="Compiles Java source and copies other source files to the WAR.">
     <mkdir dir="war/WEB-INF/classes" />
     <copy todir="war/WEB-INF/classes">
