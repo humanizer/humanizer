@@ -1,4 +1,6 @@
-*/war/*
 */.settings/*
 */*/.settings/*
 install/*
+*/war/WEB-INF/lib/*
+*/war/WEB-INF/classes/*
+

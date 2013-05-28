@@ -66,9 +66,4 @@
       </options>
     </dev_appserver>
   </target>
-	
-  <target name="clean">
-    <delete dir="war"/>
-  </target>
-
 </project>
