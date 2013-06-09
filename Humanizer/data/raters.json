@@ -1,0 +1,6 @@
+{"total_rows":4,"offset":0,"rows":[
+{"id":"1214852df0d59ca215b7bf25f1003533","key":"1214852df0d59ca215b7bf25f1003533","value":{"rev":"1-79d1e32a6a6508e44ab39ab6d0f76ae0"},"doc":{"_id":"1214852df0d59ca215b7bf25f1003533","_rev":"1-79d1e32a6a6508e44ab39ab6d0f76ae0","email":"sonhv82@gmail.com","password":"25d55ad283aa400af464c76d713c07ad","verified":false}},
+{"id":"38b5bc29e20b1e41d797de911a0005b1","key":"38b5bc29e20b1e41d797de911a0005b1","value":{"rev":"1-1e31e7ba8df9e0d98f34ee726bc15ed0"},"doc":{"_id":"38b5bc29e20b1e41d797de911a0005b1","_rev":"1-1e31e7ba8df9e0d98f34ee726bc15ed0","email":"vinhlyq@gmail.com","password":"4107eaebd361f3477b630f4ed7452418","verified":true}},
+{"id":"49abdb0279e6d16429b4cb3624000ea2","key":"49abdb0279e6d16429b4cb3624000ea2","value":{"rev":"1-8fe6364d067bf86a63f5c41b450cac6f"},"doc":{"_id":"49abdb0279e6d16429b4cb3624000ea2","_rev":"1-8fe6364d067bf86a63f5c41b450cac6f","email":"kimcuong@gmail.com","password":"e10adc3949ba59abbe56e057f20f883e","verified":true}},
+{"id":"_design/api_raters","key":"_design/api_raters","value":{"rev":"2-b9df57cbc0aae8442f4e39e0a3f0c5d4"},"doc":{"_id":"_design/api_raters","_rev":"2-b9df57cbc0aae8442f4e39e0a3f0c5d4","language":"javascript","views":{"rater_list":{"map":"function(doc) {\n  emit(doc.email, doc.password);\n}"},"raters":{"map":"function(doc) {\n  emit(doc._id, doc);\n}"}}}}
+]}

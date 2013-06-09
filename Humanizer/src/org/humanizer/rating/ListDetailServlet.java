@@ -17,6 +17,7 @@ import javax.servlet.http.HttpSession;
 import org.humanizer.rating.objects.Items;
 import org.humanizer.rating.objects.TasksByRater;
 import org.humanizer.rating.utils.HTTPClient;
+import org.humanizer.rating.utils.PaginationHelper;
 
 /**
  * @author sonhv
@@ -69,10 +70,10 @@ public class ListDetailServlet extends HttpServlet {
   String username_encoded = URLEncoder.encode(username,"UTF-8");
   String keyword_encoded = URLEncoder.encode(keyword,"UTF-8");
   TasksByRater rater = new TasksByRater();
-  
 
   //1. Get Rater's task
   sURL = "http://humanizer.iriscouch.com/tasks/_design/api/_view/tasks_by_rater?startkey=%22" + username_encoded + "%7C" + task + "%22&endkey=%22" + username_encoded + "%7C" + task +  "%22&include_docs=true";
+  
   sResult = HTTPClient.request(sURL);  
   rater.init(sResult);
   
@@ -81,13 +82,31 @@ public class ListDetailServlet extends HttpServlet {
   ArrayList data = (ArrayList) rater.getData();
   //2.1 Get Items list 	
   sURL = "http://humanizer.iriscouch.com/items/_design/index/_view/items_in_task?startkey=%22" + task + "%22&endkey=%22" + task + "%22&include_docs=true";
+//ManhNV - Pagination
+  
+  PaginationHelper paginationHelper = new PaginationHelper(sURL, req) {
+	
+	@Override
+	public int count() {
+		 String sResult = HTTPClient.request(getsURL());
+		  
+		  Items item = new Items();
+		  item.initItemListForTask(sResult);
+		return item.getItemList().size();
+	}
+};
+  sURL = paginationHelper.buildURL();
+  
+  
   sResult = HTTPClient.request(sURL);
+  
   Items item = new Items();
   item.initItemListForTask(sResult);
   rater.setItemList(item.getItemList());
   //2.2 Get Rater's rating
   //sURL = "http://humanizer.iriscouch.com/ratings/_design/api/_view/rating_by_rater_as_key?startkey=%22" + username_encoded + "%22&endkey=%22" + username_encoded + "%22&include_docs=true";
-  sURL = "http://humanizer.iriscouch.com/ratings/_design/api/_view/rating_by_rater_task?startkey=%22" + username + "%7C" + task  + "%22&endkey=%22" + username + "%7C" + task + "%22";    
+  sURL = "http://humanizer.iriscouch.com/ratings/_design/api/_view/rating_by_rater_task?startkey=%22" + username + "%7C" + task  + "%22&endkey=%22" + username + "%7C" + task + "%22";
+
   sResult = HTTPClient.request(sURL);  
   rater.setRatingResult(sResult);    
   //newData.add(item.getItemList())

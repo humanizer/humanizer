@@ -25,6 +25,7 @@ import org.humanizer.rating.objects.Project;
 import org.humanizer.rating.objects.Tasks;
 import org.humanizer.rating.objects.TasksByRater;
 import org.humanizer.rating.utils.HTTPClient;
+import org.humanizer.rating.utils.PaginationHelper;
 
 import com.google.gson.Gson;
 
@@ -67,9 +68,21 @@ public class AdminListTasksServlet extends HttpServlet {
 	  String rater_count = req.getParameter("raters");
 	  
 	  //1. Get tasks list from this project
-	  String sURL = "http://humanizer.iriscouch.com/tasks/_design/api/_view/tasks_by_project?startkey=%22" + projectId + "%22&endkey=%22" + projectId + "%22";	  
+	  String sURL = "http://humanizer.iriscouch.com/tasks/_design/api/_view/tasks_by_project?startkey=%22" + projectId + "%22&endkey=%22" + projectId + "%22";
+	  PaginationHelper paginationHelper = new PaginationHelper(sURL, req) {
+
+			@Override
+			public int count() {
+				String sResult = HTTPClient.request(getsURL());
+				Tasks prj = new Tasks();
+				prj.initTasksList(sResult);
+				return prj.getData().size();
+			}
+		};
+	sURL = paginationHelper.buildURL();
+	  
 	  String sResult = HTTPClient.request(sURL);
-	  System.out.println(sResult);
+	  
 	  Tasks prj = new Tasks();
 	  prj.initTasksList(sResult);  
 	  
